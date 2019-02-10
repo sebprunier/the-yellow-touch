@@ -1,4 +1,4 @@
-@()
+@(nextMarch: March)
 
 @main("The Yellow Touch") {
   <main>
@@ -10,6 +10,8 @@
     </div>
     <div class="march debug">
       <h2>Prochaine Manif</h2>
+      <p>@nextMarch.where</p>
+      <p>@nextMarch.when</p>
     </div>
   </main>
 }
