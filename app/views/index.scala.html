@@ -1,17 +1,37 @@
-@(nextMarch: March)
+@(nextMarch: March, donate: Donate)
 
 @main("The Yellow Touch") {
   <main>
-    <div class="news debug">
-      <h1>The Yellow Touch</h1>
-    </div>
-    <div class="donate debug">
-      <h2>Cagnotte</h2>
-    </div>
-    <div class="march debug">
+
+    <div class="march">
       <h2>Prochaine Manif</h2>
       <p>@nextMarch.where</p>
       <p>@nextMarch.when</p>
     </div>
+
+    <div class="donate">
+      <h2>Cagnotte</h2>
+      <p>@donate.baseline</p>
+      <input type="number" value="@donate.defaultAmount" title="Montant" name="amount" />
+      <button style="color: @donate.actionLabelColor; background-color: @donate.actionColor">
+        @donate.actionLabel
+      </button>
+    </div>
+
+    <div class="news">
+      <h1>The Yellow Touch</h1>
+      <div class="news-items">
+        <div class="news-item debug">
+          News .....
+        </div>
+        <div class="news-item debug">
+          News .....
+        </div>
+        <div class="news-item debug">
+          News .....
+        </div>
+      </div>
+    </div>
+
   </main>
 }

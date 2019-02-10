@@ -21,19 +21,38 @@ main {
     grid-template-areas: "news"
     "march"
     "donate";
-    grid-gap: 10px;
+    /*grid-gap: 10px;*/
 }
 
 .news {
     grid-area: news;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.news-items {
+    display: flex;
+    flex-direction: row;
+}
+.news-item {
+    width: 300px;
+    height: 200px;
 }
 
 .march {
     grid-area: march;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: lightgrey;
 }
 
 .donate {
     grid-area: donate;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: grey;
 }
 
 @media screen and (min-width: 760px) {
