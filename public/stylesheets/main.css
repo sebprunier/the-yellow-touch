@@ -42,6 +42,17 @@ main {
     text-align: center;
     border: 1px solid grey;
 }
+.news-item h3 {
+    margin: 0 0 10px;
+}
+.news-item-tags {
+    margin-top: 10px;
+}
+.news-item-tags span {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+}
 
 .march {
     grid-area: march;
