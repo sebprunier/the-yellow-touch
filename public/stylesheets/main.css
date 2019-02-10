@@ -26,17 +26,21 @@ main {
 .news {
     grid-area: news;
     padding: 10px;
+    overflow: scroll;
 }
 .news h1 {
     text-align: center;
 }
 .news-items {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     grid-gap: 10px;
 }
 .news-item {
     min-height: 200px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid grey;
 }
 
 .march {

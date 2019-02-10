@@ -1,7 +1,7 @@
 package controllers
 
 import javax.inject._
-import models.{Donate, DonateService, March, MarchService}
+import models._
 import play.api.mvc._
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -11,6 +11,7 @@ class HomeController @Inject()
 (
   marchService: MarchService,
   donateService: DonateService,
+  newsService: NewsService,
   cc: ControllerComponents
 )(
   implicit executionContext: ExecutionContext
@@ -19,11 +20,13 @@ class HomeController @Inject()
   def index(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     val nextMarchFuture: Future[March] = marchService.next()
     val donateFuture: Future[Donate] = donateService.get()
+    val allNewsFuture: Future[Seq[News]] = newsService.all()
 
     for {
       nextMarch <- nextMarchFuture
       donate <- donateFuture
-    } yield Ok(views.html.index(nextMarch, donate))
+      allNews <- allNewsFuture
+    } yield Ok(views.html.index(nextMarch, donate, allNews))
 
   }
 }

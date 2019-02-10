@@ -1,4 +1,4 @@
-@(nextMarch: March, donate: Donate)
+@(nextMarch: March, donate: Donate, allNews: Seq[News])
 
 @main("The Yellow Touch") {
   <main>
@@ -11,25 +11,32 @@
 
     <div class="donate">
       <h2>Cagnotte</h2>
-      <p>@donate.baseline</p>
-      <input type="number" value="@donate.defaultAmount" title="Montant" name="amount" />
-      <button style="color: @donate.actionLabelColor; background-color: @donate.actionColor">
-        @donate.actionLabel
-      </button>
+      @if(donate.enable) {
+        <p>@donate.baseline</p>
+        <input type="number" value="@donate.defaultAmount" title="Montant" name="amount" />
+        <button style="color: @donate.actionLabelColor; background-color: @donate.actionColor">
+          @donate.actionLabel
+        </button>
+      } else {
+        <p>Non disponible...</p>
+      }
+
     </div>
 
     <div class="news">
       <h1>The Yellow Touch</h1>
       <div class="news-items">
-        <div class="news-item debug">
-          News .....
-        </div>
-        <div class="news-item debug">
-          News .....
-        </div>
-        <div class="news-item debug">
-          News .....
-        </div>
+        @for(news <- allNews) {
+          <div class="news-item">
+            <h3>@news.title</h3>
+            <img alt="@news.image" title="@news.image" src="/assets/images/news/@news.image" />
+            <div class="news-item-tags">
+              @for(tag <- news.tags) {
+                <span>@tag</span>
+              }
+            </div>
+          </div>
+        }
       </div>
     </div>
 
