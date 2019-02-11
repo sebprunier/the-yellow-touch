@@ -18,12 +18,12 @@ class NewsService @Inject()() {
     Future.successful(
       Seq(
         News(
-          title = "Maxime Nicolle quitte la France",
+          title = "Reste en France Maxime !",
           image = "maxime-nicolle-quitte-france.png",
           tags = Seq("Maxime Nicolle", "Asile Politique", "Corée du Nord")
         ),
         News(
-          title = "Macron, Louis XIV, même destin",
+          title = "Macron, Louis XIV, même destin ?",
           image = "macron-louis-xiv.png",
           tags = Seq("Macron", "Louis XIV", "Guillotine")
         ),

@@ -16,7 +16,7 @@ class MarchService @Inject()() {
   def next(): Future[March] = {
     Future.successful(
       March(
-        when = "samedi 16 février",
+        when = "Samedi 16 février",
         where = "Poitiers"
       )
     )

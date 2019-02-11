@@ -5,8 +5,10 @@
 
     <div class="march">
       <h2>Prochaine Manif</h2>
-      <p>@nextMarch.where</p>
+      <h3>Quand ?</h3>
       <p>@nextMarch.when</p>
+      <h3>Où</h3>
+      <p>@nextMarch.where</p>
     </div>
 
     <div class="donate">
@@ -24,7 +26,9 @@
     </div>
 
     <div class="news">
-      <h1>The Yellow Touch</h1>
+      <div class="news-title">
+        <h1>The Yellow Touch</h1>
+      </div>
       <div class="news-items">
         @for(news <- allNews) {
           <div class="news-item">

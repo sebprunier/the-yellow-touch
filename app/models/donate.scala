@@ -21,10 +21,10 @@ class DonateService @Inject()() {
     Future.successful(
       Donate(
         enable = true,
-        baseline = "Soutenez la cause !",
+        baseline = "Soutenez la cause en participant à notre cagnotte en ligne !",
         defaultAmount = 10,
-        actionColor = "yellow",
-        actionLabel = "Donner",
+        actionColor = "#ffef00",
+        actionLabel = "Donner !",
         actionLabelColor = "black"
       )
     )
