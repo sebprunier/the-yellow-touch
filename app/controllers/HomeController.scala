@@ -18,7 +18,7 @@ class HomeController @Inject()
 ) extends AbstractController(cc) {
 
   def index(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    val nextMarchFuture: Future[March] = marchService.next()
+    val nextMarchFuture: Future[March] = marchService.nextFromConfiguration()
     val donateFuture: Future[Donate] = donateService.get()
     val allNewsFuture: Future[Seq[News]] = newsService.all()
 
