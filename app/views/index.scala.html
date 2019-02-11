@@ -16,7 +16,7 @@
         <h2>Cagnotte</h2>
         <p>@donate.baseline</p>
         <input type="number" value="@donate.defaultAmount" title="Montant" name="amount" />
-        <button style="color: @donate.actionLabelColor; background-color: @donate.actionColor">
+        <button id="donate" style="color: @donate.actionLabelColor; background-color: @donate.actionColor">
           @donate.actionLabel
         </button>
       }
@@ -42,4 +42,11 @@
     </div>
 
   </main>
+
+  <script>
+      document.getElementById("donate").onclick = function() {
+        console.log("Donate !");
+        fetch("/experiment/won/@donate.clientId").then(res => console.log(res));
+      };
+  </script>
 }

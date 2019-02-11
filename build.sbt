@@ -8,6 +8,7 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 scalaVersion := "2.12.8"
 
 libraryDependencies += guice
+libraryDependencies += "com.typesafe.play" %% "play-json" % "2.6.2"
 libraryDependencies += "fr.maif" %% "izanami-client" % "1.4.0"
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.1" % Test
 
