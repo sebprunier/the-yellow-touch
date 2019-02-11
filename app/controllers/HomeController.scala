@@ -20,11 +20,11 @@ class HomeController @Inject()
 
   def index(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     val language = request.headers.get("Accept-Language").getOrElse("--")
-    println(s"Language is: $language")
+    // println(s"Language is: $language")
 
-    val nextMarchFuture: Future[March] = marchService.nextFromConfiguration()
-    val donateFuture: Future[Donate] = donateService.getFromExperiment()
-    val allNewsFuture: Future[Seq[News]] = newsService.allCheckingCompromising()
+    val nextMarchFuture: Future[March] = marchService.next()
+    val donateFuture: Future[Donate] = donateService.get()
+    val allNewsFuture: Future[Seq[News]] = newsService.all()
 
     for {
       nextMarch <- nextMarchFuture

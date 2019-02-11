@@ -60,6 +60,8 @@ object Donate {
 @Singleton
 class DonateService @Inject()()(implicit configuration: CustomConfiguration, ec: ExecutionContext) {
 
+  private def experimentId = "the-yellow-touch:donate:ui-experiment"
+
   def get(): Future[Donate] = {
     Future.successful(
       Donate.default(true)
@@ -83,7 +85,7 @@ class DonateService @Inject()()(implicit configuration: CustomConfiguration, ec:
 
   def getFromExperiment(): Future[Donate] = {
     val clientId = UUID.randomUUID().toString
-    configuration.experimentsClient.getVariantFor("the-yellow-touch:donate:ui-experiment", clientId).map {
+    configuration.experimentsClient.getVariantFor(experimentId, clientId).map {
       case (Some(Variant("A", _, _))) => experimentA(clientId)
       case (Some(Variant("B", _, _))) => experimentB(clientId)
       case (_) => experimentA(clientId)
@@ -91,16 +93,16 @@ class DonateService @Inject()()(implicit configuration: CustomConfiguration, ec:
   }
 
   private def experimentA(clientId: String) = {
-    configuration.experimentsClient.markVariantDisplayed("the-yellow-touch:donate:ui-experiment", clientId)
+    configuration.experimentsClient.markVariantDisplayed(experimentId, clientId)
     Donate.variantA(true, clientId)
   }
 
   private def experimentB(clientId: String) = {
-    configuration.experimentsClient.markVariantDisplayed("the-yellow-touch:donate:ui-experiment", clientId)
+    configuration.experimentsClient.markVariantDisplayed(experimentId, clientId)
     Donate.variantB(true, clientId)
   }
 
   def winExperiment(clientId: String) = {
-    configuration.experimentsClient.markVariantWon("the-yellow-touch:donate:ui-experiment", clientId)
+    configuration.experimentsClient.markVariantWon(experimentId, clientId)
   }
 }
