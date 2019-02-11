@@ -12,17 +12,14 @@
     </div>
 
     <div class="donate">
-      <h2>Cagnotte</h2>
       @if(donate.enable) {
+        <h2>Cagnotte</h2>
         <p>@donate.baseline</p>
         <input type="number" value="@donate.defaultAmount" title="Montant" name="amount" />
         <button style="color: @donate.actionLabelColor; background-color: @donate.actionColor">
           @donate.actionLabel
         </button>
-      } else {
-        <p>Non disponible...</p>
       }
-
     </div>
 
     <div class="news">

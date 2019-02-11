@@ -18,8 +18,11 @@ class HomeController @Inject()
 ) extends AbstractController(cc) {
 
   def index(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    val language = request.headers.get("Accept-Language").getOrElse("--")
+    println(s"Language is: $language")
+
     val nextMarchFuture: Future[March] = marchService.nextFromConfiguration()
-    val donateFuture: Future[Donate] = donateService.get()
+    val donateFuture: Future[Donate] = donateService.getCheckingLanguageEnabled(language)
     val allNewsFuture: Future[Seq[News]] = newsService.allCheckingCompromising()
 
     for {
