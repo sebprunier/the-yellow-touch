@@ -20,7 +20,7 @@ class HomeController @Inject()
   def index(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
     val nextMarchFuture: Future[March] = marchService.nextFromConfiguration()
     val donateFuture: Future[Donate] = donateService.get()
-    val allNewsFuture: Future[Seq[News]] = newsService.all()
+    val allNewsFuture: Future[Seq[News]] = newsService.allCheckingCompromising()
 
     for {
       nextMarch <- nextMarchFuture
