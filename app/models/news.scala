@@ -72,13 +72,20 @@ class NewsService @Inject()()(implicit configuration: CustomConfiguration, ec: E
   }
 
   def allCheckingCompromising(): Future[Seq[News]] = {
-    configuration.featureClient.checkFeature("the-yellow-touch:news:compromising-disabled").map(compromisingDisabled => {
-      if (compromisingDisabled) {
-        News.allNews.filter(news => !news.tags.contains("Maxime Nicolle"))
-      } else {
-        News.allNews
-      }
+    val compromisingDisabledFuture: Future[Boolean] = configuration.featureClient.checkFeature("the-yellow-touch:news:compromising-disabled")
+    val compromisingTagsFuture: Future[Seq[String]] = configuration.configClient.config("the-yellow-touch:compromising-tags").map(config => {
+      (config \ "tags").as[Seq[String]]
     })
+
+
+    for {
+      compromisingDisabled <- compromisingDisabledFuture
+      compromisingTags <- compromisingTagsFuture
+    } yield if (compromisingDisabled) {
+      News.allNews.filter(news => news.tags.intersect(compromisingTags).isEmpty)
+    } else {
+      News.allNews
+    }
   }
 
 }
