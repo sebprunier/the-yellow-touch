@@ -65,12 +65,14 @@ object News {
 @Singleton
 class NewsService @Inject()()(implicit configuration: CustomConfiguration, ec: ExecutionContext) {
 
+  // All news
   def all(): Future[Seq[News]] = {
     Future.successful(
       News.allNews
     )
   }
 
+  // Exclude compromising news
   def allCheckingCompromising(): Future[Seq[News]] = {
     val compromisingDisabledFuture: Future[Boolean] = configuration.featureClient.checkFeature("the-yellow-touch:news:compromising-disabled")
     val compromisingTagsFuture: Future[Seq[String]] = configuration.configClient.config("the-yellow-touch:compromising-tags").map(config => {

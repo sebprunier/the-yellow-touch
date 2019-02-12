@@ -14,15 +14,17 @@ case class March
 @Singleton
 class MarchService @Inject()()(implicit configuration: CustomConfiguration, ec: ExecutionContext) {
 
+  // Next march
   def next(): Future[March] = {
     Future.successful(
       March(
-        when = "Samedi 16 février",
-        where = "Poitiers"
+        when = "Samedi 9 février",
+        where = "Valence"
       )
     )
   }
 
+  // Get next march from Izanami configuration
   def nextFromConfiguration(): Future[March] = {
     configuration.configClient.config("the-yellow-touch:next-march").map(config => {
       March(

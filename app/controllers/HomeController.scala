@@ -18,14 +18,18 @@ class HomeController @Inject()
   implicit executionContext: ExecutionContext
 ) extends AbstractController(cc) {
 
-  def index(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
-    val language = request.headers.get("Accept-Language").getOrElse("--")
-    // println(s"Language is: $language")
 
-    val nextMarchFuture: Future[March] = marchService.next()
-    val donateFuture: Future[Donate] = donateService.get()
+  def index(): Action[AnyContent] = Action.async { implicit request: Request[AnyContent] =>
+    // Get language from request
+    val language = request.headers.get("Accept-Language").getOrElse("--")
+    println(s"Language is: $language")
+
+    // Get data from services
+    val nextMarchFuture: Future[March]   = marchService.next()
+    val donateFuture: Future[Donate]     = donateService.get()
     val allNewsFuture: Future[Seq[News]] = newsService.all()
 
+    // Render view
     for {
       nextMarch <- nextMarchFuture
       donate <- donateFuture
@@ -33,6 +37,7 @@ class HomeController @Inject()
     } yield Ok(views.html.index(nextMarch, donate, allNews))
 
   }
+
 
   def winExperiment(clientId: String) = Action.async { implicit request: Request[AnyContent] =>
     donateService.winExperiment(clientId).map(experimentVariantWon => {
@@ -43,4 +48,5 @@ class HomeController @Inject()
       ))
     })
   }
+
 }

@@ -64,16 +64,18 @@ class DonateService @Inject()()(implicit configuration: CustomConfiguration, ec:
 
   def get(): Future[Donate] = {
     Future.successful(
-      Donate.default(true)
+      Donate.default(false)
     )
   }
 
+  // Activate from Izanami
   def getCheckingEnabled(): Future[Donate] = {
     configuration.featureClient.checkFeature("the-yellow-touch:donate:enabled").map(donateEnabled => {
       Donate.default(donateEnabled)
     })
   }
 
+  // Activate if language is appropriate
   def getCheckingLanguageEnabled(language: String): Future[Donate] = {
     val context = Json.obj(
       "language" -> language
@@ -83,6 +85,7 @@ class DonateService @Inject()()(implicit configuration: CustomConfiguration, ec:
     })
   }
 
+  // A-B testing
   def getFromExperiment(): Future[Donate] = {
     val clientId = UUID.randomUUID().toString
     configuration.experimentsClient.getVariantFor(experimentId, clientId).map {
